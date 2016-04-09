@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connect Four</title>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <button id="start-btn">Start</button>
+    <div id="turn-status"></div>
+    <div id="board-container"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="logic.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var board = null,
+                p1 = {
+                    name: "red",
+                    move: 1
+                },
+                p2 = {
+                    name: "yellow",
+                    move: 2
+                },
+                flipTurn = true, over = false;
+            $("#start-btn").click(function(){
+                board = [
+                            [0, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0],
+                            [0, 0, 0, 0, 0, 0, 0]
+                    ];
+                $('#board-container').empty();
+                for(var i = 0; i < 6; i ++){
+                    $('#board-container').append('<ul id=' + i + '>\
+                    <div class="0 slot"></div>\
+                    <div class="1 slot"></div>\
+                    <div class="2 slot"></div>\
+                    <div class="3 slot"></div>\
+                    <div class="4 slot"></div>\
+                    <div class="5 slot"></div>\
+                    <div class="6 slot"></div>\
+                    </ul>')
+                }
+                $('#board-container').css({"background-color": "#3973BF"});
+                $('#turn-status').text("Red Player is First");
+
+                $(this).text("Reset");
+            });
+
+            $('#board-container').on('click', '.slot', function(){
+                if(flipTurn){
+                    curPlayer = p1;
+                    flipTurn = false;
+                    $('#turn-status').text("It's " + p2.name + " Player's Turn")
+                } else {
+                    curPlayer = p2;
+                    flipTurn = true;
+                    $('#turn-status').text("It's " + p1.name + " Player's Turn")
+                }
+                var col = +this.className.split(" ")[0]
+                over = logic.makeMove(board, col, curPlayer, $);
+                flipTurn = over ? true : flipTurn;
+            });
+        });
+    </script>
+</body>
+</html>

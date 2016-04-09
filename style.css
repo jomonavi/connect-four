@@ -1,0 +1,19 @@
+ul div {
+  width: 75px;
+  height: 75px;
+  border: solid;
+  margin: 5px;
+  float: left;
+  background-color: white;
+  border-radius: 50%;
+}
+
+#board-container {
+  /*background-color: #3973BF;*/
+  width: 720px;
+  height: 550px;
+}
+
+* {
+    margin: 5px;
+}
